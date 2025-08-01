@@ -1,0 +1,49 @@
+[
+    {
+        "name": "技術",
+        "link": "/categories/tech",
+        "subcategories": [
+        {
+            "name": "程式語言",
+            "link": "/categories/tech/programming"
+        },
+        {
+            "name": "網頁開發",
+            "link": "/categories/tech/web"
+        },
+        {
+            "name": "資料庫",
+            "link": "/categories/tech/database"
+        }
+        ]
+    },
+    {
+        "name":"數學",
+        "link":"/categories/math",
+        "subcategories":[
+        {
+            "name": "微積分",
+            "link": "/categories/math/calculus"
+        }
+        ]
+    },
+    {
+        "name": "生活",
+        "link": "/categories/life",
+        "subcategories": [
+        {
+            "name": "旅遊",
+            "link": "/categories/life/travel"
+        },
+        {
+            "name": "閱讀",
+            "link": "/categories/life/reading"
+        }
+        ]
+    },
+    {
+        "name": "分享",
+        "link": "/categories/share",
+        "subcategories": []
+    }
+  ]
