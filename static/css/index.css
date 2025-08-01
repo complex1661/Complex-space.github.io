@@ -1,0 +1,187 @@
+:root {
+    --dark-bg: #121212;
+    --gray-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --primary-color: #ffffff;
+    --navbar-bg: rgba(255, 255, 255, 0.1);
+    --blur-radius: 10px;
+    --transition-speed: 0.3s;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('static/images/index_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.main-title {
+    color: var(--primary-color);
+    font-size: 4rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(var(--blur-radius));
+    -webkit-backdrop-filter: blur(var(--blur-radius)); /* Safari 支援 */
+    background-color: var(--navbar-bg);
+    z-index: 1000;
+    transition: background-color var(--transition-speed);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-decoration: none;
+    margin-right: 2rem;
+}
+
+.nav-links {
+    position: relative;
+    display: flex;
+}
+
+.nav-link {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    position: relative;
+    z-index: 2;
+    transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.slider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    z-index: 1;
+    transition: transform var(--transition-speed) ease-in-out, width var(--transition-speed) ease-in-out;
+}
+
+.nav-link.active ~ .slider {
+    width: 0; /* 初始狀態不顯示滑塊 */
+    transform: translateX(0);
+}
+
+/* JS 動態控制滑塊 */
+/* .nav-link:nth-child(1).active ~ .slider {
+    width: calc(100% / 4);
+    transform: translateX(0);
+} */
+
+.navbar-right {
+    display: flex;
+}
+
+.login-btn {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+.login-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--dark-bg);
+}
+
+.content-section {
+    background-color: var(--gray-bg);
+    padding: 4rem 2rem;
+    min-height: 100vh;
+}
+
+.intro-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intro-container h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.intro-container p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+.footer {
+    background-color: var(--dark-bg);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .navbar-left {
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-right {
+        width: 100%;
+    }
+
+    .login-btn {
+        width: 100%;
+    }
+}
