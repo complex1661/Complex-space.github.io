@@ -1,24 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link:not(.dropdown-toggle)');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
     const slider = document.querySelector('.slider');
     const activeLink = document.querySelector('.nav-link.active');
 
-    // 頁面載入時，將滑塊定位到當前作用中的連結
     if (activeLink) {
         updateSlider(activeLink);
     }
 
-    // 點擊導覽列連結時，更新滑塊位置
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            // 移除所有連結的 active 類別
             navLinks.forEach(l => l.classList.remove('active'));
-            // 為被點擊的連結新增 active 類別
             link.classList.add('active');
-            // 更新滑塊位置
             updateSlider(link);
+            dropdownMenu.classList.remove('show'); // 點擊其他連結時隱藏下拉選單
         });
+    });
+
+    // 處理下拉選單的顯示與隱藏
+    dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    // 點擊頁面其他地方時隱藏下拉選單
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown')) {
+            dropdownMenu.classList.remove('show');
+        }
     });
 
     /**
