@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-links .nav-link');
     const slider = document.querySelector('.slider');
     const navLinksContainer = document.querySelector('.nav-links');
-    const categoriesDropdown = document.getElementById('categories-dropdown');
     const categoriesLink = document.getElementById('categories-link');
-    const dropdownContainer = document.querySelector('.dropdown-container');
+    const dropdownContainer = document.querySelector('.dropdown-container'); // 修正: 使用正確的 class
+    const categoriesDropdown = document.getElementById('categories-dropdown');
 
     // 初始化滑塊位置
-    const initialActiveLink = document.querySelector('.nav-link.active');
+    const initialActiveLink = document.querySelector('.nav-links .nav-link.active');
     if (initialActiveLink) {
         updateSliderPosition(initialActiveLink);
     }
@@ -32,9 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 navLinks.forEach(item => item.classList.remove('active'));
                 link.classList.add('active');
                 updateSliderPosition(link);
-                dropdownContainer.classList.remove('open');
+                if (dropdownContainer) { // 檢查 dropdownContainer 是否存在
+                    dropdownContainer.classList.remove('open');
+                }
             } else {
-                // 如果是 dropdown-toggle，只需要更新 active 類別，滑塊不移動
                 navLinks.forEach(item => {
                     if (item !== link) {
                         item.classList.remove('active');
@@ -47,19 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 處理視窗大小改變事件 (重新定位滑塊)
     window.addEventListener('resize', () => {
-        const activeLink = document.querySelector('.nav-link.active');
+        const activeLink = document.querySelector('.nav-links .nav-link.active');
         updateSliderPosition(activeLink);
     });
 
     // 處理「分類」連結點擊事件 (下拉選單開合)
-    categoriesLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        dropdownContainer.classList.toggle('open');
-    });
+    if (categoriesLink && dropdownContainer) {
+        categoriesLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownContainer.classList.toggle('open');
+        });
+    }
 
     // 點擊頁面其他地方時關閉下拉選單
     document.addEventListener('click', (e) => {
-        if (!dropdownContainer.contains(e.target) && dropdownContainer.classList.contains('open')) {
+        if (dropdownContainer && !dropdownContainer.contains(e.target) && dropdownContainer.classList.contains('open')) {
             dropdownContainer.classList.remove('open');
             categoriesLink.classList.remove('active');
         }
@@ -67,9 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 動態載入並生成下拉選單內容
     async function loadCategories() {
+        if (!categoriesDropdown) return;
         try {
-            // **修正檔案路徑**
-            const response = await fetch('../data/categories.json');
+            const response = await fetch('./data/categories.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const categories = await response.json();
             
             categoriesDropdown.innerHTML = '';

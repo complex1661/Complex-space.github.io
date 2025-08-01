@@ -45,7 +45,7 @@ body {
 .navbar-left {
     display: flex;
     align-items: center;
-    position: relative; /* 確保滑塊定位基於此容器 */
+    position: relative;
 }
 .nav-logo {
     font-size: 1.5rem;
@@ -59,7 +59,7 @@ body {
     display: flex;
     position: relative;
 }
-.nav-links .nav-link { 
+.nav-links .nav-link {
     color: var(--text-color);
     text-decoration: none;
     font-size: 1rem;
@@ -87,14 +87,17 @@ body {
 .nav-links .nav-link.active + .slider {
     opacity: 1;
 }
-.dropdown-menu-container {
-    position: absolute; 
-    left: 0;
-    top: 100%;
+
+/* 修正: 下拉選單容器的樣式 */
+.dropdown-container {
+    position: relative;
+    display: flex; /* 讓它和 nav-link 一樣，可以放在 flex 容器內 */
+    align-items: center;
 }
+
 .dropdown-menu {
     position: absolute;
-    top: 10px;
+    top: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--gray-bg);
@@ -108,11 +111,13 @@ body {
     transform-origin: top;
     transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease, transform var(--transition-speed) ease;
 }
-.dropdown-menu-container.open .dropdown-menu {
+
+.dropdown-container.open .dropdown-menu {
     opacity: 1;
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
 .dropdown-item {
     display: block;
     padding: 10px 20px;
@@ -183,7 +188,7 @@ p {
     .slider {
         display: none;
     }
-    .dropdown-menu-container {
+    .dropdown-container {
         position: static;
         width: 100%;
     }
@@ -202,7 +207,7 @@ p {
         overflow: hidden;
         transition: max-height 0.4s ease-out, opacity 0.4s ease;
     }
-    .dropdown-menu-container.open .dropdown-menu {
+    .dropdown-container.open .dropdown-menu {
         opacity: 1;
         max-height: 500px;
         transition: max-height 0.6s ease-in, opacity 0.4s ease;
