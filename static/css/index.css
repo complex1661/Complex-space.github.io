@@ -96,12 +96,14 @@ body {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
     background-color: var(--gray-bg);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     min-width: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px; 
 }
 
 .dropdown-menu.show {
@@ -112,12 +114,13 @@ body {
     display: block;
     padding: 0.75rem 1rem;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--primary-color);
     transition: background-color var(--transition-speed);
+    white-space: nowrap; 
 }
 
 .dropdown-item:hover {
-    background-color: var(--dark-bg);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .slider {
