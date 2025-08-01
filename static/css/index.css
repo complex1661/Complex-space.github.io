@@ -95,15 +95,15 @@ body {
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px); 
+    left: 0; 
+    transform: none;
     background-color: var(--gray-bg);
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     min-width: 150px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 5px; 
+    margin-top: 0;
 }
 
 .dropdown-menu.show {
