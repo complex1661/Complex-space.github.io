@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoriesLink = document.getElementById('categories-link');
     const dropdownContainer = document.querySelector('.dropdown-container');
     const categoriesDropdown = document.getElementById('categories-dropdown');
+    
+    const arrowSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="submenu-arrow"><path d="M438.1 297.4c-12.5 12.5-32.8 12.5-45.3 0L248.1 182.7V464c0 17.7-14.3 32-32 32s-32-14.3-32-32V182.7L55.9 297.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l176-176c12.5-12.5 32.8-12.5 45.3 0l176 176c12.5 12.5 12.5 32.8 0 45.3z" fill="#e0e0e0"/></svg>`;
+
 
     // 初始化滑塊位置
     const initialActiveLink = document.querySelector('.nav-links .nav-link.active');
@@ -81,8 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     categoryDiv.className = 'dropdown-item has-submenu';
                     
                     const categoryLink = document.createElement('a');
-                    categoryLink.href = '#'; // 沒有子分類時可以連結，有子分類時用 #
+                    categoryLink.href = '#'; 
                     categoryLink.textContent = category.name;
+                    categoryLink.innerHTML += arrowSvg; // 插入SVG箭頭
                     categoryDiv.appendChild(categoryLink);
 
                     const subMenu = document.createElement('div');
