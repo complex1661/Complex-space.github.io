@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../images/index_background.png');
+    background-image: url('./images/index_background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -143,13 +143,13 @@ body {
     align-items: center;
     padding: 10px 20px;
     text-decoration: none;
-    color: var(--text-color);
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+    color: var(--primary-color);
+    transition: background-color var(--transition-speed) ease;
+    gap: 10px; /* 新增: 確保文字與箭頭有間距 */
 }
 
 .dropdown-item a:hover {
     background-color: rgba(255, 255, 255, 0.05);
-    color: var(--primary-color);
 }
 
 .has-submenu > a {
@@ -157,10 +157,10 @@ body {
 }
 
 .submenu-arrow {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     fill: var(--text-color);
-    margin-left: 10px;
+    margin-left: auto; /* 讓箭頭靠右 */
     transition: fill var(--transition-speed) ease;
 }
 

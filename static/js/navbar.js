@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownContainer = document.querySelector('.dropdown-container');
     const categoriesDropdown = document.getElementById('categories-dropdown');
     
-    const arrowSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="submenu-arrow"><path d="M438.1 297.4c-12.5 12.5-32.8 12.5-45.3 0L248.1 182.7V464c0 17.7-14.3 32-32 32s-32-14.3-32-32V182.7L55.9 297.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l176-176c12.5-12.5 32.8-12.5 45.3 0l176 176c12.5 12.5 12.5 32.8 0 45.3z" fill="#e0e0e0"/></svg>`;
+    const arrowSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-circle submenu-arrow" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/></svg>`;
 
 
     // 初始化滑塊位置
@@ -85,8 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const categoryLink = document.createElement('a');
                     categoryLink.href = '#'; 
-                    categoryLink.textContent = category.name;
-                    categoryLink.innerHTML += arrowSvg; // 插入SVG箭頭
+                    categoryLink.innerHTML = `${category.name}${arrowSvg}`;
                     categoryDiv.appendChild(categoryLink);
 
                     const subMenu = document.createElement('div');
