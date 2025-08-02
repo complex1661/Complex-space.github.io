@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-links .nav-link');
+    const navLinks = document.querySelectorAll('.nav-links .nav-link:not(.dropdown-toggle)');
     const slider = document.querySelector('.slider');
     const navLinksContainer = document.querySelector('.nav-links');
     const categoriesLink = document.getElementById('categories-link');
-    const dropdownContainer = document.querySelector('.dropdown-container'); // 修正: 使用正確的 class
+    const dropdownContainer = document.querySelector('.dropdown-container');
     const categoriesDropdown = document.getElementById('categories-dropdown');
 
     // 初始化滑塊位置
@@ -28,20 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 處理導覽列連結點擊事件 (滑塊移動)
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            if (!link.classList.contains('dropdown-toggle')) {
-                navLinks.forEach(item => item.classList.remove('active'));
-                link.classList.add('active');
-                updateSliderPosition(link);
-                if (dropdownContainer) { // 檢查 dropdownContainer 是否存在
-                    dropdownContainer.classList.remove('open');
-                }
-            } else {
-                navLinks.forEach(item => {
-                    if (item !== link) {
-                        item.classList.remove('active');
-                    }
-                });
-                link.classList.toggle('active');
+            navLinks.forEach(item => item.classList.remove('active'));
+            link.classList.add('active');
+            updateSliderPosition(link);
+            if (dropdownContainer) {
+                dropdownContainer.classList.remove('open');
             }
         });
     });
@@ -57,18 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesLink.addEventListener('click', (e) => {
             e.preventDefault();
             dropdownContainer.classList.toggle('open');
+            // 點擊分類時，滑塊移到分類連結上
+            updateSliderPosition(categoriesLink);
+            // 確保其他連結的 active 狀態被移除
+            navLinks.forEach(item => item.classList.remove('active'));
         });
     }
 
     // 點擊頁面其他地方時關閉下拉選單
     document.addEventListener('click', (e) => {
-        if (dropdownContainer && !dropdownContainer.contains(e.target) && dropdownContainer.classList.contains('open')) {
+        if (dropdownContainer && !dropdownContainer.contains(e.target) && !categoriesLink.contains(e.target) && dropdownContainer.classList.contains('open')) {
             dropdownContainer.classList.remove('open');
-            categoriesLink.classList.remove('active');
         }
     });
 
-    // 動態載入並生成下拉選單內容
+    // 動態載入並生成下拉選單內容 (新邏輯)
     async function loadCategories() {
         if (!categoriesDropdown) return;
         try {
@@ -82,25 +76,32 @@ document.addEventListener('DOMContentLoaded', () => {
             
             categories.forEach(category => {
                 const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'dropdown-group';
-                
-                const categoryLink = document.createElement('a');
-                categoryLink.href = category.link;
-                categoryLink.className = 'dropdown-item main-category';
-                categoryLink.textContent = category.name;
-                categoryDiv.appendChild(categoryLink);
                 
                 if (category.subcategories && category.subcategories.length > 0) {
-                    const subcategoryList = document.createElement('div');
-                    subcategoryList.className = 'subcategory-list';
+                    categoryDiv.className = 'dropdown-item has-submenu';
+                    
+                    const categoryLink = document.createElement('a');
+                    categoryLink.href = '#'; // 沒有子分類時可以連結，有子分類時用 #
+                    categoryLink.textContent = category.name;
+                    categoryDiv.appendChild(categoryLink);
+
+                    const subMenu = document.createElement('div');
+                    subMenu.className = 'submenu';
+                    
                     category.subcategories.forEach(sub => {
                         const subLink = document.createElement('a');
                         subLink.href = sub.link;
                         subLink.className = 'dropdown-item sub-category';
                         subLink.textContent = sub.name;
-                        subcategoryList.appendChild(subLink);
+                        subMenu.appendChild(subLink);
                     });
-                    categoryDiv.appendChild(subcategoryList);
+                    categoryDiv.appendChild(subMenu);
+                } else {
+                    categoryDiv.className = 'dropdown-item';
+                    const categoryLink = document.createElement('a');
+                    categoryLink.href = category.link;
+                    categoryLink.textContent = category.name;
+                    categoryDiv.appendChild(categoryLink);
                 }
                 
                 categoriesDropdown.appendChild(categoryDiv);
